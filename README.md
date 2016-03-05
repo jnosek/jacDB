@@ -1,7 +1,7 @@
 # jacDB
 Just Another Cool Database
 
-Experimental .net database server for learning
+Experimental .net database for learning
 
 Datafiles are human readable
 
