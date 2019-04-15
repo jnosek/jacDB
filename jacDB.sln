@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.539
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jacDB.Client.Repl", "jacDB.Client.Repl\jacDB.Client.Repl.csproj", "{F8428DA5-B89F-422A-9D88-E8CB9162F8CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jacDb.Client", "jacDb.Client\jacDb.Client.csproj", "{269C68B0-DC03-46FC-A544-6472C06C5F61}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jacDB.Client", "jacDb.Client\jacDB.Client.csproj", "{269C68B0-DC03-46FC-A544-6472C06C5F61}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jacDB.Core", "jacDB.Core\jacDB.Core.csproj", "{01DC41C8-309F-4BD9-9FCE-6C8E6716D777}"
 EndProject
