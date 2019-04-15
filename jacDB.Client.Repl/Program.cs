@@ -1,4 +1,6 @@
-﻿using System;
+﻿using jacDB.Core;
+using jacDB.Core.Exceptions;
+using System;
 using System.Reflection;
 
 namespace jacDB.Client.Repl
@@ -13,15 +15,32 @@ namespace jacDB.Client.Repl
 
             string command = string.Empty;
 
-            while(command != Commands.Exit)
+            while (command != MetaCommand.Exit)
             {
                 Console.Write(Prompt);
 
                 command = Console.ReadLine();
 
-                if(!Commands.IsValid(command))
+                // handle meta commands
+                if (MetaCommand.IsMetaCommand(command))
                 {
-                    Console.WriteLine(UIResources.UnrecognizedCommand, command);
+                    if (!MetaCommand.IsValid(command))
+                    {
+                        Console.WriteLine(UIResources.UnrecognizedCommand, command);
+                    }
+                }
+                // handle statements
+                else
+                {
+                    try
+                    {
+                        var statement = Statement.Prepare(command);
+                        statement.Execute();
+                    }
+                    catch(UnrecognizedStatementException e)
+                    {
+                        Console.WriteLine(UIResources.UnrecognizedKeywordAtStart, command);
+                    }
                 }
             }
         }

@@ -61,11 +61,20 @@ namespace jacDB.Client.Repl {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unrecognized Command &apos;{0}&apos;.
+        ///   Looks up a localized string similar to Unrecognized command &apos;{0}&apos;.
         /// </summary>
         internal static string UnrecognizedCommand {
             get {
                 return ResourceManager.GetString("UnrecognizedCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unrecognized keyword at start of &apos;{0}&apos;.
+        /// </summary>
+        internal static string UnrecognizedKeywordAtStart {
+            get {
+                return ResourceManager.GetString("UnrecognizedKeywordAtStart", resourceCulture);
             }
         }
     }

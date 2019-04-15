@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\jacDB.Core\jacDB.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="UIResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

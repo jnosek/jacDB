@@ -5,11 +5,11 @@ VisualStudioVersion = 15.0.28307.539
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jacDB.Client.Repl", "jacDB.Client.Repl\jacDB.Client.Repl.csproj", "{F8428DA5-B89F-422A-9D88-E8CB9162F8CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jacDB.Client", "jacDb.Client\jacDB.Client.csproj", "{269C68B0-DC03-46FC-A544-6472C06C5F61}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jacDB.Core", "jacDB.Core\jacDB.Core.csproj", "{01DC41C8-309F-4BD9-9FCE-6C8E6716D777}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jacDB.Server", "jacDB.Server\jacDB.Server.csproj", "{9A5BB5D6-C274-4BA0-B968-0742AFB6A3E5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jacDB.Client", "jacDB.Client\jacDB.Client.csproj", "{88CFBCDA-680E-4D05-BB1F-E6618E3DE2C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +21,6 @@ Global
 		{F8428DA5-B89F-422A-9D88-E8CB9162F8CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8428DA5-B89F-422A-9D88-E8CB9162F8CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8428DA5-B89F-422A-9D88-E8CB9162F8CD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{269C68B0-DC03-46FC-A544-6472C06C5F61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{269C68B0-DC03-46FC-A544-6472C06C5F61}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{269C68B0-DC03-46FC-A544-6472C06C5F61}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{269C68B0-DC03-46FC-A544-6472C06C5F61}.Release|Any CPU.Build.0 = Release|Any CPU
 		{01DC41C8-309F-4BD9-9FCE-6C8E6716D777}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{01DC41C8-309F-4BD9-9FCE-6C8E6716D777}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01DC41C8-309F-4BD9-9FCE-6C8E6716D777}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{9A5BB5D6-C274-4BA0-B968-0742AFB6A3E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A5BB5D6-C274-4BA0-B968-0742AFB6A3E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A5BB5D6-C274-4BA0-B968-0742AFB6A3E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88CFBCDA-680E-4D05-BB1F-E6618E3DE2C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88CFBCDA-680E-4D05-BB1F-E6618E3DE2C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88CFBCDA-680E-4D05-BB1F-E6618E3DE2C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88CFBCDA-680E-4D05-BB1F-E6618E3DE2C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
