@@ -2,8 +2,9 @@
 
 namespace jacDB.Core.Exceptions
 {
-    public class UnrecognizedStatementException : Exception
+    public class IllegalStatementException : Exception
     {
         public string Statement { get; internal set; }
+        public SyntaxError SyntaxError { get; internal set; }
     }
 }

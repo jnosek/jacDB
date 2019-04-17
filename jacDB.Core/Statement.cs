@@ -1,25 +1,47 @@
 ﻿using jacDB.Core.Exceptions;
 using jacDB.Core.Statements;
-using System;
+using System.Linq;
 
 namespace jacDB.Core
 {
-    public abstract class Statement
+    public static class Statement
     {
-        public static Statement Prepare(string input)
+        public static IStatement Prepare(string input)
         {
-            if (input.StartsWith(InsertStatement.Name, StringComparison.OrdinalIgnoreCase))
-                return new InsertStatement();
-
-            if (input.StartsWith(SelectStatement.Name, StringComparison.OrdinalIgnoreCase))
-                return new SelectStatement();
-
-            throw new UnrecognizedStatementException
+            // ensure input has values
+            if(string.IsNullOrWhiteSpace(input))
             {
-                Statement = input
-            };
-        }
+                throw new IllegalStatementException
+                {
+                    Statement = input,
+                    SyntaxError = SyntaxError.NoValue
+                };
+            }
 
-        public abstract void Execute();
+            var arguments = input.Split(' ');
+            var statementName = arguments[0].ToUpperInvariant();
+
+            StatementBase statement = null;
+
+            switch(statementName)
+            {
+                case InsertStatement.Name:
+                    statement = new InsertStatement();
+                    break;
+                case SelectStatement.Name:
+                    statement = new SelectStatement();
+                    break;
+                default:
+                    throw new UnrecognizedStatementException
+                    {
+                        Statement = arguments[0]
+                    };
+            }
+
+            // initialize with arguments but skip the statement name
+            statement.Initialize(arguments.Skip(1).ToList());
+
+            return statement;
+        }
     }
 }

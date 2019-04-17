@@ -1,14 +1,23 @@
-﻿using System;
+﻿using jacDB.Core.Storage;
+using System;
 
 namespace jacDB.Core.Statements
 {
-    class SelectStatement : Statement
+    class SelectStatement : StatementBase
     {
-        internal const string Name = "select";
+        internal const string Name = "SELECT";
 
         public override void Execute()
         {
-            Console.WriteLine("This is a select statement");
+            var table = GetTable();
+
+            for(int i = 0; i < table.RowCount; i++)
+            {
+                var row = new Row();
+                row.Deserialize(table.GetSlot(i));
+
+                Console.WriteLine($"({row.Id}, {row.Username}, {row.Email})");
+            }
         }
     }
 }
