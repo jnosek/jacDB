@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Text;
 
 namespace jacDB.Core.Storage
@@ -38,8 +37,29 @@ namespace jacDB.Core.Storage
             var sourceArray = source.ToArray();
 
             Id = BitConverter.ToUInt32(sourceArray, Id_Offset);
-            Username = Encoding.ASCII.GetString(sourceArray, Username_Offset, Username_Size);
-            Email = Encoding.ASCII.GetString(sourceArray, Email_Offset, Email_Size);
+            
+            Username = Encoding.ASCII.GetString(sourceArray, Username_Offset, 
+                FindStringLength(sourceArray, Username_Offset, Username_Size));
+
+            Email = Encoding.ASCII.GetString(sourceArray, Email_Offset,
+                FindStringLength(sourceArray, Email_Offset, Email_Size));
+        }
+
+        /// <summary>
+        /// finds the length of an ASCII string in a byte array by find the first null character terminator
+        /// </summary>
+        /// <param name="array"></param>
+        /// <param name="offset"></param>
+        /// <param name="size"></param>
+        /// <returns></returns>
+        private int FindStringLength(byte[] array, int offset, int size)
+        {
+            var endIndex = Array.IndexOf<byte>(array, 0x0, offset, size);
+
+            if (endIndex <= -1)
+                return size;
+            else
+                return endIndex - offset;
         }
     }
 }
