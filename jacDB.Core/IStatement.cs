@@ -2,6 +2,10 @@
 {
     public interface IStatement
     {
-        void Execute();
+        /// <summary>
+        /// Executes the statement
+        /// </summary>
+        /// <returns>result output</returns>
+        string Execute();
     }
 }

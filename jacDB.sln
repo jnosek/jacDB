@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.539
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jacDB.Client.Repl", "jacDB.Client.Repl\jacDB.Client.Repl.csproj", "{F8428DA5-B89F-422A-9D88-E8CB9162F8CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jacDB.Client.Repl", "jacDB.Client.Repl\jacDB.Client.Repl.csproj", "{F8428DA5-B89F-422A-9D88-E8CB9162F8CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jacDB.Core", "jacDB.Core\jacDB.Core.csproj", "{01DC41C8-309F-4BD9-9FCE-6C8E6716D777}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jacDB.Core", "jacDB.Core\jacDB.Core.csproj", "{01DC41C8-309F-4BD9-9FCE-6C8E6716D777}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jacDB.Server", "jacDB.Server\jacDB.Server.csproj", "{9A5BB5D6-C274-4BA0-B968-0742AFB6A3E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jacDB.Server", "jacDB.Server\jacDB.Server.csproj", "{9A5BB5D6-C274-4BA0-B968-0742AFB6A3E5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jacDB.Client", "jacDB.Client\jacDB.Client.csproj", "{88CFBCDA-680E-4D05-BB1F-E6618E3DE2C7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4448F158-A7B2-417A-AF4F-2DDC75092DDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "jacDB.Client.Repl.Tests", "jacDB.Client.Repl.Tests\jacDB.Client.Repl.Tests.csproj", "{3B24AEBC-916C-4FB4-874E-DD6EF81A4109}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +37,16 @@ Global
 		{88CFBCDA-680E-4D05-BB1F-E6618E3DE2C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88CFBCDA-680E-4D05-BB1F-E6618E3DE2C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88CFBCDA-680E-4D05-BB1F-E6618E3DE2C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B24AEBC-916C-4FB4-874E-DD6EF81A4109}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B24AEBC-916C-4FB4-874E-DD6EF81A4109}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B24AEBC-916C-4FB4-874E-DD6EF81A4109}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B24AEBC-916C-4FB4-874E-DD6EF81A4109}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3B24AEBC-916C-4FB4-874E-DD6EF81A4109} = {4448F158-A7B2-417A-AF4F-2DDC75092DDB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {93544684-E184-4D25-940C-BDFA6546FF80}

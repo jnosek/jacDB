@@ -1,5 +1,5 @@
 ﻿using jacDB.Core.Storage;
-using System;
+using System.Text;
 
 namespace jacDB.Core.Statements
 {
@@ -7,17 +7,21 @@ namespace jacDB.Core.Statements
     {
         internal const string Name = "SELECT";
 
-        public override void Execute()
+        public override string Execute()
         {
             var table = GetTable();
+
+            var output = new StringBuilder();
 
             for(int i = 0; i < table.RowCount; i++)
             {
                 var row = new Row();
                 row.Deserialize(table.GetSlot(i));
 
-                Console.WriteLine($"({row.Id}, {row.Username}, {row.Email})");
+                output.AppendLine($"({row.Id}, {row.Username}, {row.Email})");
             }
+
+            return output.ToString();
         }
     }
 }

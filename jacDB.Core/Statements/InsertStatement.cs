@@ -24,7 +24,7 @@ namespace jacDB.Core.Statements
             row.Email = Arguments[2];
         }
 
-        public override void Execute()
+        public override string Execute()
         {
             var table = GetTable();
 
@@ -37,6 +37,8 @@ namespace jacDB.Core.Statements
             }
 
             row.Serialize(table.GetNewSlot());
+
+            return string.Empty;
         }
     }
 }

@@ -24,6 +24,6 @@ namespace jacDB.Core
             return table;
         }
 
-        public abstract void Execute();
+        public abstract string Execute();
     }
 }
