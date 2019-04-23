@@ -22,6 +22,8 @@ namespace jacDB.Client.Repl
 
         public void RunLoop()
         {
+            Context.Intialize(new Context());
+
             string command = string.Empty;
 
             while (command != MetaCommand.Exit)
@@ -48,6 +50,24 @@ namespace jacDB.Client.Repl
 
                         output.Write(result);
                         output.WriteLine(Executed);
+                    }
+                    catch(TableException e)
+                    {
+                        output.Write("Error: ");
+
+                        string message = string.Empty;
+
+                        switch(e.ErrorCode)
+                        {
+                            case TableException.Error.TableFull:
+                                message = "Table Full.";
+                                break;
+                            default:
+                                message = "Unknow Table Error.";
+                                break;
+                        }
+
+                        output.WriteLine(message);
                     }
                     catch (UnrecognizedStatementException e)
                     {

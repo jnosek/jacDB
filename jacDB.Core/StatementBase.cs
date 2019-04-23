@@ -18,10 +18,9 @@ namespace jacDB.Core
         {
         }
 
-        private static Table table = new Table();
         protected internal Table GetTable()
         {
-            return table;
+            return Context.Current.Table;
         }
 
         public abstract string Execute();

@@ -28,7 +28,7 @@ namespace jacDB.Core.Statements
         {
             var table = GetTable();
 
-            if(table.RowCount > Table.MaxRows)
+            if(table.RowCount >= Table.MaxRows)
             {
                 throw new TableException
                 {

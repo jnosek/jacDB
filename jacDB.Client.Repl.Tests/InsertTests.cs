@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
+using System.Linq;
 
 namespace jacDB.Client.Repl.Tests
 {
@@ -50,6 +51,26 @@ namespace jacDB.Client.Repl.Tests
             Assert.AreEqual("jacDB> (1, user1, person1@example.com)", output.ReadLine());
             Assert.AreEqual("Executed.", output.ReadLine());
             Assert.AreEqual("jacDB> ", output.ReadLine());
+        }
+
+        [TestMethod]
+        public void InsertUntilFull()
+        {
+            // arrange
+            for (var i = 0; i < 1401; i++)
+            {
+                input.WriteLine($"insert {i} user{i} user{i}@example.com");
+            }
+            input.WriteLine(".exit");
+            input.BaseStream.Position = 0;
+
+            // act
+            service.RunLoop();
+            output.BaseStream.Position = 0;
+
+            // assert
+            var lines = output.ReadToEnd().Split("\r\n");
+            Assert.AreEqual("jacDB> Error: Table Full.", lines.SkipLast(1).Last());
         }
     }
 }
