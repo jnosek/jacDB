@@ -72,5 +72,24 @@ namespace jacDB.Client.Repl.Tests
             var lines = output.ReadToEnd().Split("\r\n");
             Assert.AreEqual("jacDB> Error: Table Full.", lines.SkipLast(1).Last());
         }
+
+        [TestMethod]
+        public void InsertMaxLengthFields()
+        {
+            // arrange
+            var username = new string(Enumerable.Range(0, 32).Select(s => 'a').ToArray());
+            var email = new string(Enumerable.Range(0, 255).Select(s => 'b').ToArray());
+            input.WriteLine($"insert 1 {username} {email}");
+            input.WriteLine(".exit");
+            input.BaseStream.Position = 0;
+
+            // act
+            service.RunLoop();
+            output.BaseStream.Position = 0;
+
+            // assert
+            Assert.AreEqual("jacDB> Executed.", output.ReadLine());
+            Assert.AreEqual("jacDB> ", output.ReadLine());
+        }
     }
 }
