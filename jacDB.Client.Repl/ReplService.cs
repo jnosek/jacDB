@@ -69,9 +69,12 @@ namespace jacDB.Client.Repl
 
                         output.WriteLine(message);
                     }
-                    catch (UnrecognizedStatementException e)
+                    catch (IllegalStatementException e)
                     {
-                        output.WriteLine(UIResources.UnrecognizedKeywordAtStart, command);
+                        if (e.SyntaxError == SyntaxError.UnknownStatement)
+                            output.WriteLine(UIResources.UnrecognizedKeywordAtStart, command);
+                        else
+                            output.WriteLine(UIResources.IllegalSyntax);
                     }
                 }
             }

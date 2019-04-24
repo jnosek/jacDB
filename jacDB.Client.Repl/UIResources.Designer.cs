@@ -61,6 +61,15 @@ namespace jacDB.Client.Repl {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Illegal Syntax.
+        /// </summary>
+        internal static string IllegalSyntax {
+            get {
+                return ResourceManager.GetString("IllegalSyntax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unrecognized command &apos;{0}&apos;.
         /// </summary>
         internal static string UnrecognizedCommand {

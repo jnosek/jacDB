@@ -32,9 +32,10 @@ namespace jacDB.Core
                     statement = new SelectStatement();
                     break;
                 default:
-                    throw new UnrecognizedStatementException
+                    throw new IllegalStatementException
                     {
-                        Statement = arguments[0]
+                        Statement = arguments[0],
+                        SyntaxError = SyntaxError.UnknownStatement
                     };
             }
 
