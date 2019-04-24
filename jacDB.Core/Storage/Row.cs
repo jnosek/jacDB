@@ -1,4 +1,5 @@
-﻿using System;
+﻿using jacDB.Core.Exceptions;
+using System;
 using System.Text;
 
 namespace jacDB.Core.Storage
@@ -16,9 +17,48 @@ namespace jacDB.Core.Storage
 
         public const int RowSize = Id_Size + Username_Size + Email_Size;
 
-        public uint Id { get; set; }
-        public string Username { get; set; }
-        public string Email { get; set; }
+        private uint _id;
+        public uint Id
+        {
+            get => _id;
+            set => _id = value;
+        }
+
+        private string _username;
+        public string Username
+        {
+            get => _username;
+            set
+            {
+                if (value.Length > Username_Size)
+                {
+                    throw new IllegalStatementException
+                    {
+                        SyntaxError = SyntaxError.StringLength
+                    };
+                }
+
+                _username = value;
+            }
+        }
+
+        private string _email;
+        public string Email
+        {
+            get => _email;
+            set
+            {
+                if (value.Length > Email_Size)
+                {
+                    throw new IllegalStatementException
+                    {
+                        SyntaxError = SyntaxError.StringLength
+                    };
+                }
+
+                _email = value;
+            }
+        }
 
         public void Serialize(Span<byte> destination)
         {

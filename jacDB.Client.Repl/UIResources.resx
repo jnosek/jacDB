@@ -120,6 +120,9 @@
   <data name="IllegalSyntax" xml:space="preserve">
     <value>Illegal Syntax</value>
   </data>
+  <data name="StringLength" xml:space="preserve">
+    <value>String is too long</value>
+  </data>
   <data name="UnrecognizedCommand" xml:space="preserve">
     <value>Unrecognized command '{0}'</value>
   </data>

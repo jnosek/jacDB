@@ -70,6 +70,15 @@ namespace jacDB.Client.Repl {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to String is too long.
+        /// </summary>
+        internal static string StringLength {
+            get {
+                return ResourceManager.GetString("StringLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unrecognized command &apos;{0}&apos;.
         /// </summary>
         internal static string UnrecognizedCommand {

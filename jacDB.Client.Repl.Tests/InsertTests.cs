@@ -91,5 +91,24 @@ namespace jacDB.Client.Repl.Tests
             Assert.AreEqual("jacDB> Executed.", output.ReadLine());
             Assert.AreEqual("jacDB> ", output.ReadLine());
         }
+
+        [TestMethod]
+        public void InsertBeyondLengthFields()
+        {
+            // arrange
+            var username = new string(Enumerable.Range(0, 33).Select(s => 'a').ToArray());
+            var email = new string(Enumerable.Range(0, 256).Select(s => 'b').ToArray());
+            input.WriteLine($"insert 1 {username} {email}");
+            input.WriteLine(".exit");
+            input.BaseStream.Position = 0;
+
+            // act
+            service.RunLoop();
+            output.BaseStream.Position = 0;
+
+            // assert
+            Assert.AreEqual("jacDB> String is too long", output.ReadLine());
+            Assert.AreEqual("jacDB> ", output.ReadLine());
+        }
     }
 }

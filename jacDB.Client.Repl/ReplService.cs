@@ -71,10 +71,22 @@ namespace jacDB.Client.Repl
                     }
                     catch (IllegalStatementException e)
                     {
-                        if (e.SyntaxError == SyntaxError.UnknownStatement)
-                            output.WriteLine(UIResources.UnrecognizedKeywordAtStart, command);
-                        else
-                            output.WriteLine(UIResources.IllegalSyntax);
+                        string message = string.Empty;
+
+                        switch(e.SyntaxError)
+                        {
+                            case SyntaxError.UnknownStatement:
+                                message = string.Format(UIResources.UnrecognizedKeywordAtStart, command);
+                                break;
+                            case SyntaxError.StringLength:
+                                message = UIResources.StringLength;
+                                break;
+                            default:
+                                message = UIResources.IllegalSyntax;
+                                break;
+                        }
+
+                        output.WriteLine(message);
                     }
                 }
             }
