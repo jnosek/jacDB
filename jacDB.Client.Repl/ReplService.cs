@@ -81,6 +81,9 @@ namespace jacDB.Client.Repl
                             case SyntaxError.StringLength:
                                 message = UIResources.StringLength;
                                 break;
+                            case SyntaxError.NegativeId:
+                                message = UIResources.NegativeId;
+                                break;
                             default:
                                 message = UIResources.IllegalSyntax;
                                 break;

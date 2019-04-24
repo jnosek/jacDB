@@ -110,5 +110,22 @@ namespace jacDB.Client.Repl.Tests
             Assert.AreEqual("jacDB> String is too long", output.ReadLine());
             Assert.AreEqual("jacDB> ", output.ReadLine());
         }
+
+        [TestMethod]
+        public void InsertNegativeId()
+        {
+            // arrange
+            input.WriteLine($"insert -1 abc def");
+            input.WriteLine(".exit");
+            input.BaseStream.Position = 0;
+
+            // act
+            service.RunLoop();
+            output.BaseStream.Position = 0;
+
+            // assert
+            Assert.AreEqual("jacDB> ID must be positive", output.ReadLine());
+            Assert.AreEqual("jacDB> ", output.ReadLine());
+        }
     }
 }

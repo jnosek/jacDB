@@ -19,7 +19,17 @@ namespace jacDB.Core.Statements
                 };
             }
 
-            row.Id = uint.Parse(Arguments[0]);
+            var id = long.Parse(Arguments[0]);
+
+            if(id < 0)
+            {
+                throw new IllegalStatementException
+                {
+                    SyntaxError = SyntaxError.NegativeId
+                };
+            }
+
+            row.Id = (uint)id;
             row.Username = Arguments[1];
             row.Email = Arguments[2];
         }

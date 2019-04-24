@@ -70,6 +70,15 @@ namespace jacDB.Client.Repl {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ID must be positive.
+        /// </summary>
+        internal static string NegativeId {
+            get {
+                return ResourceManager.GetString("NegativeId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to String is too long.
         /// </summary>
         internal static string StringLength {

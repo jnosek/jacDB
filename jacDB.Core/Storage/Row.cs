@@ -17,12 +17,7 @@ namespace jacDB.Core.Storage
 
         public const int RowSize = Id_Size + Username_Size + Email_Size;
 
-        private uint _id;
-        public uint Id
-        {
-            get => _id;
-            set => _id = value;
-        }
+        public uint Id { get; set; }
 
         private string _username;
         public string Username
