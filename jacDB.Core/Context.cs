@@ -1,4 +1,5 @@
 ﻿using jacDB.Core.Storage;
+using System;
 
 namespace jacDB.Core
 {
@@ -6,9 +7,9 @@ namespace jacDB.Core
     {
         public static Context Current { get; private set; }
 
-        public static void Intialize(Context c)
+        public static void Intialize(Context context)
         {
-            Current = c;
+            Current = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         internal Table Table { get; } = new Table();

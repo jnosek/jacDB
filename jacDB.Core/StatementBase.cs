@@ -1,4 +1,5 @@
 ﻿using jacDB.Core.Storage;
+using System;
 using System.Collections.Generic;
 
 namespace jacDB.Core
@@ -9,7 +10,7 @@ namespace jacDB.Core
 
         public void Initialize(IList<string> arguments)
         {
-            Arguments = arguments;
+            Arguments = arguments ?? throw new ArgumentNullException(nameof(arguments));
 
             OnInitialize();
         }

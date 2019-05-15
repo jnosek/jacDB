@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace jacDB.Core.Storage
 {
@@ -23,6 +24,8 @@ namespace jacDB.Core.Storage
 
         public Span<byte> GetSlot(int rowNumber)
         {
+            Debug.Assert(rowNumber >= 0);
+
             int pageNumber = rowNumber / RowsPerPage;
 
             var page = Pages[pageNumber];
