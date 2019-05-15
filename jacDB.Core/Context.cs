@@ -3,15 +3,32 @@ using System;
 
 namespace jacDB.Core
 {
-    public class Context
+    public class Context : IDisposable
     {
-        public static Context Current { get; private set; }
+        public string Filename { get; private set; }
 
-        public static void Intialize(Context context)
+        public Context(string filename)
         {
-            Current = context ?? throw new ArgumentNullException(nameof(context));
+            Filename = filename;
         }
 
-        internal Table Table { get; } = new Table();
+        public void Open()
+        {
+            Table = new Table();
+            Table.Open(Filename);
+        }
+
+        public void Close()
+        {
+            Table.Close();
+            Table = null;
+        }
+
+        public void Dispose()
+        {
+            Close();
+        }
+
+        internal Table Table { get; private set; }
     }
 }

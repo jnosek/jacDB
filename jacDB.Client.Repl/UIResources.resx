@@ -123,6 +123,12 @@
   <data name="NegativeId" xml:space="preserve">
     <value>ID must be positive</value>
   </data>
+  <data name="PageIOError" xml:space="preserve">
+    <value>IO Error reading page file</value>
+  </data>
+  <data name="PageNumberOutOfBounds" xml:space="preserve">
+    <value>Requested page number is out of bounds</value>
+  </data>
   <data name="StringLength" xml:space="preserve">
     <value>String is too long</value>
   </data>

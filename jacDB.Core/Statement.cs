@@ -14,7 +14,7 @@ namespace jacDB.Core
                 throw new IllegalStatementException
                 {
                     Statement = input,
-                    SyntaxError = SyntaxError.NoValue
+                    Code = SyntaxError.NoValue
                 };
             }
 
@@ -35,7 +35,7 @@ namespace jacDB.Core
                     throw new IllegalStatementException
                     {
                         Statement = arguments[0],
-                        SyntaxError = SyntaxError.UnknownStatement
+                        Code = SyntaxError.UnknownStatement
                     };
             }
 

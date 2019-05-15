@@ -5,13 +5,49 @@ namespace jacDB.Core.Storage
 {
     internal class Table
     {
-        public const int PageSize = 4096;
-        public const int MaxPages = 100;
-        public const int RowsPerPage = PageSize / Row.RowSize;
-        public const int MaxRows = RowsPerPage * MaxPages;
+        private readonly Pager pager;
+        
+        public const int RowsPerPage = Pager.PageSize / Row.RowSize;
+        public const int MaxRows = RowsPerPage * Pager.MaxPages;
+        
+        public string Filename { get; private set; }
+        public int RowCount { get; private set; }
 
-        public byte[][] Pages { get; private set; } = new byte[100][];
-        public int RowCount { get; private set; } = 0;
+        public Table()
+        {
+            RowCount = 0;
+            pager = new Pager();
+        }
+
+        public void Open(string filename)
+        {
+            RowCount = 0;
+            Filename = filename;
+
+            pager.Initialize(filename);
+            RowCount = (int)(pager.FileLength / Row.RowSize);
+        }
+
+        public void Close()
+        {
+            // calulcate how many full pages there are to flush
+            int fullPageCount = RowCount / RowsPerPage;
+
+            // flush full pages
+            for(int i = 0; i < fullPageCount; i++)
+            {
+                pager.Flush(i);
+            }
+
+            // There may be a partial page to write to the end of the file
+            int additionalRowCount = RowCount % RowsPerPage;
+            if(additionalRowCount > 0)
+            {
+                pager.Flush(fullPageCount, additionalRowCount * Row.RowSize);
+            }
+
+            pager.Dispose();
+        }
 
         public Span<byte> GetNewSlot()
         {
@@ -28,14 +64,10 @@ namespace jacDB.Core.Storage
 
             int pageNumber = rowNumber / RowsPerPage;
 
-            var page = Pages[pageNumber];
+            // ask pager for page
+            var page = pager.GetPage(pageNumber);
 
-            // if page is empty, allocate it
-            if (page == null)
-            {
-                page = Pages[pageNumber] = new byte[PageSize];
-            }
-
+            // find row location
             int rowOffset = rowNumber % RowsPerPage;
             int byteOffset = rowOffset * Row.RowSize;
 

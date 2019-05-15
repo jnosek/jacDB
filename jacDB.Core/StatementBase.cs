@@ -19,11 +19,6 @@ namespace jacDB.Core
         {
         }
 
-        protected internal Table GetTable()
-        {
-            return Context.Current.Table;
-        }
-
-        public abstract string Execute();
+        public abstract string Execute(Context context);
     }
 }

@@ -79,6 +79,24 @@ namespace jacDB.Client.Repl {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IO Error reading page file.
+        /// </summary>
+        internal static string PageIOError {
+            get {
+                return ResourceManager.GetString("PageIOError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requested page number is out of bounds.
+        /// </summary>
+        internal static string PageNumberOutOfBounds {
+            get {
+                return ResourceManager.GetString("PageNumberOutOfBounds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to String is too long.
         /// </summary>
         internal static string StringLength {

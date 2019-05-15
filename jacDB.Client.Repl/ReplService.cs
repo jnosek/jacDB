@@ -11,9 +11,12 @@ namespace jacDB.Client.Repl
 
         private readonly StreamReader input;
         private readonly StreamWriter output;
+        private readonly string filename;
 
-        public ReplService(Stream input, Stream output)
+        public ReplService(string filename, Stream input, Stream output)
         {
+            this.filename = filename;
+
             this.input = new StreamReader(input);
             
             this.output = new StreamWriter(output);
@@ -22,74 +25,82 @@ namespace jacDB.Client.Repl
 
         public void RunLoop()
         {
-            Context.Intialize(new Context());
-
-            string command = string.Empty;
-
-            while (command != MetaCommand.Exit)
+            using (var context = new Context(filename))
             {
-                output.Write(Prompt);
+                context.Open();
 
-                command = input.ReadLine();
+                string command = string.Empty;
 
-                // handle meta commands
-                if (MetaCommand.IsMetaCommand(command))
+                while (command != MetaCommand.Exit)
                 {
-                    if (!MetaCommand.IsValid(command))
-                    {
-                        output.WriteLine(UIResources.UnrecognizedCommand, command);
-                    }
-                }
-                // handle statements
-                else
-                {
-                    try
-                    {
-                        var statement = Statement.Prepare(command);
-                        var result = statement.Execute();
+                    output.Write(Prompt);
 
-                        output.Write(result);
-                        output.WriteLine(Executed);
-                    }
-                    catch(TableException e)
+                    command = input.ReadLine();
+
+                    // handle meta commands
+                    if (MetaCommand.IsMetaCommand(command))
                     {
-                        output.Write("Error: ");
-
-                        string message = string.Empty;
-
-                        switch(e.ErrorCode)
+                        switch (command)
                         {
-                            case TableException.Error.TableFull:
-                                message = "Table Full.";
-                                break;
+                            case MetaCommand.Exit:
+                                output.WriteLine();
+                                return;
                             default:
-                                message = "Unknow Table Error.";
+                                output.WriteLine(UIResources.UnrecognizedCommand, command);
                                 break;
                         }
-
-                        output.WriteLine(message);
                     }
-                    catch (IllegalStatementException e)
+                    // handle statements
+                    else
                     {
-                        string message = string.Empty;
-
-                        switch(e.SyntaxError)
+                        try
                         {
-                            case SyntaxError.UnknownStatement:
-                                message = string.Format(UIResources.UnrecognizedKeywordAtStart, command);
-                                break;
-                            case SyntaxError.StringLength:
-                                message = UIResources.StringLength;
-                                break;
-                            case SyntaxError.NegativeId:
-                                message = UIResources.NegativeId;
-                                break;
-                            default:
-                                message = UIResources.IllegalSyntax;
-                                break;
-                        }
+                            var statement = Statement.Prepare(command);
+                            var result = statement.Execute(context);
 
-                        output.WriteLine(message);
+                            output.Write(result);
+                            output.WriteLine(Executed);
+                        }
+                        catch (StorageException e)
+                        {
+                            output.Write("Error: ");
+
+                            string message = string.Empty;
+
+                            switch (e.Code)
+                            {
+                                case StorageError.TableFull:
+                                    message = "Table Full.";
+                                    break;
+                                default:
+                                    message = "Unknow Table Error.";
+                                    break;
+                            }
+
+                            output.WriteLine(message);
+                        }
+                        catch (IllegalStatementException e)
+                        {
+                            string message = string.Empty;
+
+                            switch (e.Code)
+                            {
+                                case SyntaxError.UnknownStatement:
+                                    message = string.Format(UIResources.UnrecognizedKeywordAtStart, command);
+                                    break;
+                                case SyntaxError.StringLength:
+                                    message = UIResources.StringLength;
+                                    break;
+                                case SyntaxError.NegativeId:
+                                    message = UIResources.NegativeId;
+                                    break;
+                                default:
+                                    message = UIResources.IllegalSyntax;
+                                    break;
+                            }
+
+                            output.WriteLine(message);
+                        }
                     }
                 }
             }

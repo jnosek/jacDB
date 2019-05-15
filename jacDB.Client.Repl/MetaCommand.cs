@@ -12,10 +12,5 @@ namespace jacDB.Client.Repl
         {
             return command != null && command.Length > 0 && command[0] == PrefixSymbol;
         }
-
-        internal static bool IsValid(string command)
-        {
-            return string.Equals(command, Exit, StringComparison.Ordinal);
-        }
     }
 }

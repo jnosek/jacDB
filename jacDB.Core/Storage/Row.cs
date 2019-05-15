@@ -29,7 +29,7 @@ namespace jacDB.Core.Storage
                 {
                     throw new IllegalStatementException
                     {
-                        SyntaxError = SyntaxError.StringLength
+                        Code = SyntaxError.StringLength
                     };
                 }
 
@@ -47,7 +47,7 @@ namespace jacDB.Core.Storage
                 {
                     throw new IllegalStatementException
                     {
-                        SyntaxError = SyntaxError.StringLength
+                        Code = SyntaxError.StringLength
                     };
                 }
 

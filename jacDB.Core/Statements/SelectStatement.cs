@@ -7,9 +7,9 @@ namespace jacDB.Core.Statements
     {
         internal const string Name = "SELECT";
 
-        public override string Execute()
+        public override string Execute(Context context)
         {
-            var table = GetTable();
+            var table = context.Table;
 
             var output = new StringBuilder();
 

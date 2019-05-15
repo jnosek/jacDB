@@ -15,7 +15,7 @@ namespace jacDB.Core.Statements
             {
                 throw new IllegalStatementException
                 {
-                    SyntaxError = SyntaxError.ArgumentLength
+                    Code = SyntaxError.ArgumentLength
                 };
             }
 
@@ -25,7 +25,7 @@ namespace jacDB.Core.Statements
             {
                 throw new IllegalStatementException
                 {
-                    SyntaxError = SyntaxError.NegativeId
+                    Code = SyntaxError.NegativeId
                 };
             }
 
@@ -34,15 +34,15 @@ namespace jacDB.Core.Statements
             row.Email = Arguments[2];
         }
 
-        public override string Execute()
+        public override string Execute(Context context)
         {
-            var table = GetTable();
+            var table = context.Table;
 
             if(table.RowCount >= Table.MaxRows)
             {
-                throw new TableException
+                throw new StorageException
                 {
-                    ErrorCode = TableException.Error.TableFull
+                    Code = StorageError.TableFull
                 };
             }
 

@@ -1,4 +1,6 @@
-﻿namespace jacDB.Core
+﻿using jacDB.Core.Storage;
+
+namespace jacDB.Core
 {
     public interface IStatement
     {
@@ -6,6 +8,6 @@
         /// Executes the statement
         /// </summary>
         /// <returns>result output</returns>
-        string Execute();
+        string Execute(Context context);
     }
 }
