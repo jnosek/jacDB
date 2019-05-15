@@ -49,27 +49,28 @@ namespace jacDB.Core.Storage
             pager.Dispose();
         }
 
-        public Span<byte> GetNewSlot()
+        public Cursor End => new Cursor(this, RowCount);
+
+        public Cursor Start => new Cursor(this);
+
+        public Span<byte> GetSlot(Cursor cursor)
         {
-            var slot = GetSlot(RowCount);
+            Debug.Assert(cursor != null);
 
-            RowCount++;
-
-            return slot;
-        }
-
-        public Span<byte> GetSlot(int rowNumber)
-        {
-            Debug.Assert(rowNumber >= 0);
-
-            int pageNumber = rowNumber / RowsPerPage;
+            int pageNumber = cursor.RowNumber / RowsPerPage;
 
             // ask pager for page
             var page = pager.GetPage(pageNumber);
 
             // find row location
-            int rowOffset = rowNumber % RowsPerPage;
+            int rowOffset = cursor.RowNumber % RowsPerPage;
             int byteOffset = rowOffset * Row.RowSize;
+
+            // if we are retrieving the slot for a new row, increase row count
+            if(cursor.IsAtEnd)
+            {
+                RowCount++;
+            }
 
             return page.AsSpan(byteOffset, Row.RowSize);
         }

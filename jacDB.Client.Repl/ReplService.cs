@@ -18,9 +18,11 @@ namespace jacDB.Client.Repl
             this.filename = filename;
 
             this.input = new StreamReader(input);
-            
-            this.output = new StreamWriter(output);
-            this.output.AutoFlush = true;
+
+            this.output = new StreamWriter(output)
+            {
+                AutoFlush = true
+            };
         }
 
         public void RunLoop()

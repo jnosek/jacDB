@@ -13,12 +13,16 @@ namespace jacDB.Core.Statements
 
             var output = new StringBuilder();
 
-            for(int i = 0; i < table.RowCount; i++)
+            var cursor = table.Start;
+
+            while(!cursor.IsAtEnd)
             {
                 var row = new Row();
-                row.Deserialize(table.GetSlot(i));
+                row.Deserialize(table.GetSlot(cursor));
 
                 output.AppendLine($"({row.Id}, {row.Username}, {row.Email})");
+
+                cursor.Advance();
             }
 
             return output.ToString();

@@ -46,7 +46,7 @@ namespace jacDB.Core.Statements
                 };
             }
 
-            row.Serialize(table.GetNewSlot());
+            row.Serialize(table.GetSlot(table.End));
 
             return string.Empty;
         }
