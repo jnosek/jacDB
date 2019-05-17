@@ -1,5 +1,6 @@
 ﻿using jacDB.Core.Exceptions;
 using System;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace jacDB.Core.Storage
@@ -14,6 +15,8 @@ namespace jacDB.Core.Storage
 
         const int Email_Size = 255;
         const int Email_Offset = Username_Offset + Username_Size;
+
+        const byte StringTerminator = 0x0;
 
         public const int RowSize = Id_Size + Username_Size + Email_Size;
 
@@ -69,15 +72,13 @@ namespace jacDB.Core.Storage
 
         public void Deserialize(Span<byte> source)
         {
-            var sourceArray = source.ToArray();
+            Id = MemoryMarshal.Read<uint>(source);
 
-            Id = BitConverter.ToUInt32(sourceArray, Id_Offset);
-            
-            Username = Encoding.ASCII.GetString(sourceArray, Username_Offset, 
-                FindStringLength(sourceArray, Username_Offset, Username_Size));
+            Username = Encoding.ASCII.GetString(
+                FindStringBytes(source, Username_Offset, Username_Size));
 
-            Email = Encoding.ASCII.GetString(sourceArray, Email_Offset,
-                FindStringLength(sourceArray, Email_Offset, Email_Size));
+            Email = Encoding.ASCII.GetString(
+                FindStringBytes(source, Email_Offset, Email_Size));
         }
 
         /// <summary>
@@ -87,14 +88,15 @@ namespace jacDB.Core.Storage
         /// <param name="offset"></param>
         /// <param name="size"></param>
         /// <returns></returns>
-        private int FindStringLength(byte[] array, int offset, int size)
+        private byte[] FindStringBytes(Span<byte> row, int offset, int size)
         {
-            var endIndex = Array.IndexOf<byte>(array, 0x0, offset, size);
+            var rawString = row.Slice(offset, size);
+            var endIndex = rawString.IndexOf(StringTerminator);
 
             if (endIndex <= -1)
-                return size;
+                return rawString.ToArray();
             else
-                return endIndex - offset;
+                return rawString.Slice(0, endIndex).ToArray();
         }
     }
 }
