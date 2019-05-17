@@ -20,7 +20,12 @@ namespace jacDB.Core.Storage
 
         public const int RowSize = Id_Size + Username_Size + Email_Size;
 
-        public uint Id { get; set; }
+        private uint _id;
+        public uint Id
+        {
+            get => _id;
+            set => _id = value;
+        }
 
         private string _username;
         public string Username
@@ -60,8 +65,7 @@ namespace jacDB.Core.Storage
 
         public void Serialize(Span<byte> destination)
         {
-            BitConverter.GetBytes(Id).AsSpan()
-                .CopyTo(destination.Slice(Id_Offset, Id_Size));
+            MemoryMarshal.Write(destination, ref _id);
 
             Encoding.ASCII.GetBytes(Username).AsSpan()
                 .CopyTo(destination.Slice(Username_Offset, Username_Size));
